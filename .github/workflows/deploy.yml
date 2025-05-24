@@ -22,7 +22,7 @@ jobs:
         run: npm ci
 
       - name: Build Expo web (Metro)
-        run: npm run web-build
+        run: npm run predeploy
 
       - name: Deploy to GitHub pages
         uses: peaceiris/actions-gh-pages@v4
