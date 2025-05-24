@@ -1,0 +1,31 @@
+name: Deploy to GitHub
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Expo web (Metro)
+        run: npm run web-build
+
+      - name: Deploy to GitHub pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.DEVOPS_PROJECT_DEPLOY }}
+          publish_dir: ./dist
